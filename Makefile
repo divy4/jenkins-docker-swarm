@@ -1,13 +1,11 @@
 build:
-	@docker build --file jenkins_master/Dockerfile --tag jenkins_master jenkins_master
-	@docker build --file jenkins_slave/Dockerfile --tag jenkins_slave jenkins_slave
+	@docker-compose -p jenkins build
 build-clean:
-	@docker build --no-cache --file jenkins_master/Dockerfile --tag jenkins_master jenkins_master
-	@docker build --no-cache --file jenkins_slave/Dockerfile --tag jenkins_slave jenkins_slave
+	@docker-compose -p jenkins build --no-cache
 start:
-	@docker run --rm -d -p 80:8080 --name jenkins_master jenkins_master
+	@docker stack deploy --compose-file docker-compose.yml jenkins
 stop:
-	@docker stop jenkins_master
+	@docker stack rm jenkins
 status:
 	@echo 'Stacks:'
 	@docker stack ls
@@ -18,6 +16,6 @@ status:
 	@echo 'Containers:'
 	@docker ps -a
 test-master:
-	@docker run --rm -it --name jenkins_master_test jenkins_master /bin/ash
+	@docker run --rm -it --name jenkins-master-test jenkins-master /bin/ash
 test-slave:
-	@docker run --rm -it --name jenkins_slave_test jenkins_slave /bin/ash
+	@docker run --rm -it --name jenkins-slave-test jenkins-slave /bin/ash
