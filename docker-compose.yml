@@ -1,0 +1,29 @@
+version: '3'
+services:
+  master:
+    build: ./jenkins-master
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    image: jenkins-master
+    networks:
+      - jenkins-net
+    ports:
+      - "80:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins-log:/var/log/jenkins
+      - jenkins-data:/var/jenkins_home
+  slave:
+    build: ./jenkins-slave
+    deploy:
+      replicas: 0
+    image: jenkins-slave
+    networks:
+      - jenkins-net
+volumes:
+  jenkins-data:
+  jenkins-log:
+networks:
+  jenkins-net:
