@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.173-alpine 
+FROM jenkins/jenkins:2.199-alpine
 LABEL maintainer="danivy4@gmail.com"
 
 ENV JAVA_OPTS="-Xmx2048m -Djenkins.install.runSetupWizard=false"

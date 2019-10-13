@@ -1,4 +1,4 @@
-FROM jenkins/slave:3.27-1-alpine
+FROM jenkins/slave:3.35-3-alpine
 LABEL maintainer="danivy4@gmail.com"
 
 USER root
